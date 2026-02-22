@@ -10,5 +10,9 @@ This project was made for my personal use, but i decided that it would be good i
 This overlay uses official LRClib api.
 There is also a fallback, so when GET fails it fallbacks to Search. Meaning that you will get your lyrics most of the time.
 
-Quick note, this overlay fetches data from Tuna and listens on port 1608.
+# How to use.
+1. Make sure you have Tuna setuped in OBS and running on port 1608.
+2. And then simply add a browser source and set the url to:
+# https://jakpat2.github.io/Tuna-Lyrics-OBS-Overlay/
+
 Ok, thats all. Enjoy!
