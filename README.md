@@ -1,6 +1,6 @@
 # Tuna-Lyrics-OBS-Overlay
 An unofficial OBS browser overlay which gets music lyrics from LRClib for a OBS plugin named Tuna.
-** https://github.com/univrsal/tuna
+**https://github.com/univrsal/tuna**
 
 The official overlay that is in the Tuna plugin github repository looks bad, and uses a lyrics database which is hosted by the creator of the Tuna plugin.
 The reason i decided to make this overlay is that:
