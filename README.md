@@ -14,6 +14,6 @@ There is also a fallback, so when GET fails it fallbacks to Search. Meaning that
 # How to use.
 1. Make sure you have Tuna setuped in OBS and running on port 1608.
 2. And then simply add a browser source and set the url to:
-# http://jakpat.duckdns.org/Tuna-Lyrics-OBS-Overlay/
+# https://jakpat2.github.io/Tuna-Lyrics-OBS-Overlay/
 
 Ok, thats all. Enjoy!
