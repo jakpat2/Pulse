@@ -1,17 +1,22 @@
 # 🎵 Tuna Lyrics OBS Overlay
-A beautiful, high-performance OBS browser overlay for synchronized lyrics. This project fetches real-time data from [LRCLib](https://lrclib.net/) and integrates seamlessly with the [Tuna OBS Plugin](https://github.com/univrsal/tuna).
+A high-performance, visually stunning OBS browser overlay for synchronized lyrics. Built specifically for the [Tuna OBS Plugin](https://github.com/univrsal/tuna).
 
-> **The Upgrade:** While the default Tuna overlay is functional, it lacks visual flair. This version provides a modern aesthetic with glowing effects, smooth motion, and word-by-word highlighting.
+> **The Upgrade:** This project was born out of frustration with the original Tuna overlay's reliability. By connecting directly to the **official LRCLib API** and using a smarter search system, this overlay finds lyrics for songs that the original simply can't.
 
 ---
 
+## 🚀 Why use this?
+1. **Reliability:** The original Tuna overlay uses a self-hosted lyrics database that is missing songs. This version talks directly to the official **LRCLib API**.
+2. **Triple-Fallback Search:** * **Duration Match:** Uses the exact song length for high-precision sync.
+    * **Metadata Match:** Direct Title + Artist lookup.
+    * **Broad Search:** A "Hail Mary" search to find lyrics even if the song metadata is messy.
+3. **Premium Visuals:** Features an "Apple Music" style aesthetic with glowing effects and smooth, hardware-accelerated motion.
+
 ## ✨ Features
 * **Word-by-Word Highlighting:** Real-time tracking *within* the line for a premium karaoke feel.
-* **Triple-Fallback Search:** 1. **Duration Match:** Uses exact song length for high-precision sync.
-    2. **Metadata Match:** Direct Title + Artist lookup.
-    3. **Broad Search:** Fallback query to find lyrics even with messy metadata.
-* **Hardware Accelerated:** Uses CSS blurs and transforms optimized for OBS performance.
-* **Dynamic Offset:** Easily fine-tune your sync via the OBS URL.
+* **Hardware Accelerated:** Optimized CSS blurs and transforms to keep OBS CPU usage low.
+* **Dynamic Masking:** Built-in transparency gradients so lyrics fade elegantly at the edges.
+* **Dynamic Offset:** Fine-tune your sync via the OBS URL without touching code.
 
 ---
 
@@ -26,7 +31,7 @@ A beautiful, high-performance OBS browser overlay for synchronized lyrics. This 
 2. Use the URL for the version you prefer:
 
 #### 🌟 Modern Glow (Version 2 - Recommended)
-Features word-highlighting and smooth glow.
+The latest version with reliability fixes and word-sync.
 **URL:** `https://jakpat.dev/Tuna-Lyrics-OBS-Overlay/`
 
 #### 📜 Classic (Version 1)
@@ -36,9 +41,7 @@ The original lightweight version with simple line-by-line scrolling.
 ---
 
 ## 🕒 Adjusting Sync (Offset)
-If the lyrics are consistently too fast or too slow for your specific player, you can adjust the timing directly in the OBS URL without changing any code.
-
-Simply add `?offset=VALUE` to the end of your URL in the Browser Source:
+If the lyrics are consistently too fast or too slow, add `?offset=VALUE` to the end of your URL in the Browser Source:
 * **To delay lyrics:** `.../?offset=2.5`
 * **To speed them up:** `.../?offset=0.5`
 *(Default is 1.3)*
@@ -46,7 +49,7 @@ Simply add `?offset=VALUE` to the end of your URL in the Browser Source:
 ---
 
 ## ℹ️ Technical Note on Word-Sync
-Please note that most lyrics in the **LRCLib** database are synchronized by **line**, not by individual word. 
+Most lyrics in the **LRCLib** database are synchronized by **line**, not by individual word. 
 * This overlay uses an **intelligent prediction algorithm** to estimate word timings based on character length and line duration.
 * While it feels incredibly smooth for most songs, it may not be 100% perfect for tracks with unusual vocal rhythms (like rapid-fire rap or long sustained notes).
 
