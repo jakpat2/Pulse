@@ -39,6 +39,10 @@ This overlay is designed to feel like a premium karaoke machine, even though mos
 1. Create a new **Browser Source** in OBS.
 2. Use the URL for the version you prefer:
 
+#### 💎 The Studio Edition (Full Setup)
+The complete package. This version includes a floating glassmorphism card with Album Art, Song Title, Artist, and a Progress Bar alongside the Modern Glow lyrics.
+**URL:** `https://jakpat.dev/Tuna-Lyrics-OBS-Overlay/studio.html`
+
 #### 🌟 Modern Glow (Recommended)
 The latest version with the Hybrid Search engine and word-sync. (This is the main version)
 **URL:** `https://jakpat.dev/Tuna-Lyrics-OBS-Overlay/`
