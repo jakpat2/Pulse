@@ -45,7 +45,7 @@ The complete package. This version includes a floating glassmorphism card with A
 
 #### 🌟 Modern Glow (Recommended)
 The latest version with the Hybrid Search engine and word-sync. (This is the main version)
-**URL:** `https://jakpat.dev/Tuna-Lyrics-OBS-Overlay/`
+**URL:** `https://jakpat.dev/Tuna-Lyrics-OBS-Overlay/modern-glow.html`
 
 #### 🔥 Kinetic 3D
 A high-energy, cinematic layout featuring 3D perspective, motion blur, and aggressive typography that "punches" through the screen.
