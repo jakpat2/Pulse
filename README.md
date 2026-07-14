@@ -11,7 +11,7 @@ Compact, lightweight, and customizable overlays for your stream.
 * **Compact:** A minimalist music status widget featuring dynamic color extraction based on the album art.
     * **URL:** `https://tuna.jakpat.dev/widgets/compact.html`
 
-### 🖼️ Visualizers (Studio Architecture)
+### 🖼️ Visualizers
 These tools utilize our premium glassmorphism card engine for a clean, cohesive display.
 
 * **Vision:** The complete cinematic package. This version features the signature floating glassmorphism card with Album Art, Song Title, Artist, and a Progress Bar, set against an ambient, dynamically extended background.
