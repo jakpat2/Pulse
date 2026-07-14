@@ -12,6 +12,8 @@ These tools utilize our premium glassmorphism card engine for a clean, cohesive 
     * **URL:** `https://tuna.jakpat.dev/visualizers/vision.html`
 * **Studio Edition:** The full lyric-integrated experience. Features the same floating glassmorphism card with Album Art, Song Title, Artist, and a Progress Bar, paired with the Modern Glow lyric engine.
     * **URL:** `https://tuna.jakpat.dev/visualizers/studio.html`
+* **Studio Minus Edition:** Studio Edition but without lyrics. Allowing you to put anything you want on top of it in OBS.
+    * **URL:** `https://tuna.jakpat.dev/visualizers/studio-minus.html`
 
 ### 🎤 Lyric Overlays
 High-performance, synchronized lyric engines featuring our **Hybrid Search Strategy** (High-Precision + Fuzzy Fallback) via the [LRCLib API](https://lrclib.net/).
