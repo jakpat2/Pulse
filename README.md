@@ -1,4 +1,4 @@
-> **⚠️ NOTICE:** Tuna Suite is currently transitioning and merging into **Pulse**. Please pardon our dust while we update our branding and documentation.
+> # **⚠️ NOTICE:** Tuna Suite is currently transitioning and merging into **Pulse**. Please pardon our dust while we update our branding and documentation.
 > The new home for all overlays and tools is: [pulse.jakpat.dev](https://pulse.jakpat.dev)
 
 # 🎵 Pulse
