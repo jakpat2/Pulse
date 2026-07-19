@@ -1,0 +1,42 @@
+{
+  "name": "Pulse",
+  "author": "jakpat",
+  "description": "The premium, all-in-one suite for synchronized lyrics, visualizers, and stream widgets. Featuring both a native desktop application and full compatibility with the Tuna OBS plugin. Made by jakpat.",
+  "productName": "Pulse-Desktop",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jakpat2/Pulse.git"
+  },
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder"
+  },
+  "dependencies": {
+    "@coooookies/windows-smtc-monitor": "^1.0.12",
+    "cors": "^2.8.6",
+    "electron-log": "^5.4.4",
+    "electron-store": "^11.0.2",
+    "express": "^5.2.1",
+    "file-type": "^22.0.1",
+    "image-size": "^2.0.2",
+    "string-similarity": "^4.0.4"
+  },
+  "build": {
+    "appId": "dev.jakpat.pulse",
+    "productName": "Pulse-Desktop",
+    "win": {
+      "target": "portable",
+      "icon": "icon.png"
+    },
+    "portable": {
+      "artifactName": "${productName}-${version}.exe",
+      "unpackDirName": "Pulse-Desktop"
+    }
+  },
+  "devDependencies": {
+    "electron": "^43.1.1",
+    "electron-builder": "^26.15.3"
+  }
+}
