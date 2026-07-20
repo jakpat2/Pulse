@@ -91,8 +91,7 @@ Pulse is designed to be a portable application. All configuration files (`config
 
 ## 🤝 Credits
 * **Lyrics API:** [LRCLib](https://lrclib.net/)
-* **OBS Integration:** [Tuna OBS Plugin](https://github.com/univrsal/tuna)
-* **Apple Music API:** For getting music/album covers that got cut of by the Windows 1MB thumbnail limit.
-* **Deezer API:** Used as a fallback for when Apple Music API doesnt return a cover art.
+* **Apple Music API:** For getting music/album covers that got cut off by the Windows 1MB thumbnail limit.
+* **Deezer API:** Used as a fallback for when the Apple Music API doesn't return cover art.
 
 *Developed with ❤️ by jakpat.*
