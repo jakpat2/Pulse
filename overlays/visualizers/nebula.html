@@ -316,6 +316,12 @@
         let last_tick_time = Date.now();
         let playback_rate = 1.0;
 
+        // Initialize a global canvas strictly for color sampling to prevent memory bloat
+        const globalCanvas = document.createElement('canvas');
+        const globalCtx = globalCanvas.getContext('2d', { willReadFrequently: true });
+        globalCanvas.width = 20; 
+        globalCanvas.height = 20;
+
         function formatTime(seconds) {
             if (isNaN(seconds) || seconds < 0) return "0:00";
             const mins = Math.floor(seconds / 60);
@@ -339,12 +345,12 @@
             img.crossOrigin = "Anonymous";
             img.src = timestamped;
             img.onload = () => {
-                const canvas = document.createElement('canvas');
-                const ctx = canvas.getContext('2d');
-                canvas.width = 20; canvas.height = 20;
-                ctx.drawImage(img, 0, 0, 20, 20);
-                const p = ctx.getImageData(2, 2, 1, 1).data;
-                const p2 = ctx.getImageData(18, 18, 1, 1).data;
+                // Clear and reuse the existing canvas
+                globalCtx.clearRect(0, 0, 20, 20);
+                globalCtx.drawImage(img, 0, 0, 20, 20);
+                
+                const p = globalCtx.getImageData(2, 2, 1, 1).data;
+                const p2 = globalCtx.getImageData(18, 18, 1, 1).data;
                 
                 document.documentElement.style.setProperty('--accent-1', `rgb(${p[0]}, ${p[1]}, ${p[2]})`);
                 document.documentElement.style.setProperty('--accent-2', `rgb(${p2[0]}, ${p2[1]}, ${p2[2]})`);
@@ -503,6 +509,14 @@
         }
 
         function renderLoop() {
+            // Guard clause to pause heavy DOM processing and save CPU cycles when stopped
+            if (current_status === "stopped") {
+                // Keep the timestamp fresh so dt doesn't cause a massive jump when music resumes
+                last_tick_time = Date.now(); 
+                requestAnimationFrame(renderLoop);
+                return;
+            }
+
             const now = Date.now();
             const dt = (now - last_tick_time) / 1000;
             last_tick_time = now;
