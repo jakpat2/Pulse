@@ -36,7 +36,7 @@ These tools utilize our premium glassmorphism card engine for a clean, cohesive 
 ### 🎤 Lyric Overlays
 High-performance, synchronized lyric engines featuring our **Hybrid Search Strategy** (High-Precision + Fuzzy Fallback) via the [LRCLib API](https://lrclib.net/).
 
-*   **Modern Glow (Recommended):** The latest version featuring Hybrid Search and intelligent word-sync.
+*   **Modern Glow:** The latest version featuring Hybrid Search and intelligent word-sync.
     *   **OBS Source:** `https://pulse.jakpat.dev/overlays/lyrics/modern-glow.html`
 *   **Kinetic 3D:** High-energy, cinematic layout with 3D perspective and aggressive typography.
     *   **OBS Source:** `https://pulse.jakpat.dev/overlays/lyrics/kinetic.html`
