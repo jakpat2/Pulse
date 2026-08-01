@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'>
+    <title>Nebula</title>
+    <style>
+        :root {
+            --accent-1: #ff007f;
+            --accent-2: #00d2ff;
+            --bg-color: #030305;
+            --text-main: #ffffff;
+            --scroll-speed: 0.6s;
+            --word-speed: 0.35s; 
+            --micro-lift: -3px;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: var(--bg-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            overflow: hidden;
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+            mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+        }
+
+        /* --- ORGANIC LIGHT SHOW STAGE --- */
+        #stage {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+            background: #020204;
+        }
+
+        #bg-cover {
+            position: absolute;
+            top: -20%; left: -20%; width: 140%; height: 140%;
+            background-size: cover;
+            background-position: center;
+            filter: blur(120px) brightness(0.28);
+            transition: background-image 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateZ(0);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            mix-blend-mode: screen;
+            will-change: transform, opacity;
+            pointer-events: none;
+            transition: background 1s ease;
+        }
+
+        #orb-1 {
+            width: 60vw; height: 60vw;
+            background: var(--accent-1);
+            top: -15%; left: -10%;
+        }
+
+        #orb-2 {
+            width: 70vw; height: 70vw;
+            background: var(--accent-2);
+            bottom: -20%; right: -10%;
+        }
+
+        /* --- LYRICS CONTAINER --- */
+        #lyrics-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: calc(100vh - 150px);
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+        }
+
+        #lyrics-wrapper {
+            width: 90%; 
+            max-width: 900px;
+            transition: transform var(--scroll-speed) cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: transform;
+        }
+
+        #lyrics {
+            list-style: none;
+            padding: 0; margin: 0;
+            text-align: center;
+        }
+        
+        #lyrics li {
+            padding: 36px 20px; 
+            font-size: 2.8rem; 
+            line-height: 1.45;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.08; 
+            font-weight: 700;
+            text-wrap: balance;
+            max-width: 850px;
+            margin: 0 auto;
+        }
+
+        #lyrics li.active { 
+            opacity: 1 !important; 
+        }
+
+        .word-wrapper { 
+            display: inline-block; 
+            perspective: 1000px; 
+        }
+
+        .word {
+            display: inline-block;
+            transition: transform var(--word-speed) cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        opacity var(--word-speed) cubic-bezier(0.4, 0, 0.2, 1),
+                        color var(--word-speed) ease,
+                        text-shadow var(--word-speed) ease;
+            opacity: 0.35;
+            white-space: pre;
+            transform: translateY(0);
+        }
+
+        .active-word {
+            opacity: 1 !important;
+            color: #ffffff !important;
+            transform: translateY(var(--micro-lift)) scale(1.02); 
+            text-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.7), 
+                0 0 40px rgba(255, 255, 255, 0.3),
+                0 6px 20px rgba(0, 0, 0, 0.9); 
+        }
+
+        .status-msg {
+            opacity: 1 !important;
+            font-size: 1.6rem !important; 
+            margin-top: 38vh; 
+            color: rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+            letter-spacing: 0.5px;
+        }
+
+        /* --- MUSIC WIDGET --- */
+        .widget-wrapper {
+            position: fixed;
+            bottom: 28px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 680px;
+            z-index: 100;
+        }
+
+        .widget {
+            display: flex;
+            align-items: center;
+            background: rgba(14, 14, 18, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-radius: 22px;
+            padding: 16px 24px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            transition: border-color 0.3s ease;
+        }
+
+        #cover-art {
+            width: 80px;
+            height: 80px;
+            border-radius: 14px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+            position: relative;
+            background-color: #1a1a24;
+        }
+
+        .pause-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 14px;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            backdrop-filter: blur(3px);
+        }
+
+        body.is-paused .pause-overlay { display: flex; }
+
+        .track-details {
+            margin-left: 20px;
+            flex-grow: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        #title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 4px;
+            letter-spacing: 0.2px;
+        }
+
+        #artist {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.65);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            margin-bottom: 10px;
+        }
+
+        .progress-container {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .time-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 600;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        #bar-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--accent-1);
+            box-shadow: 0 0 12px var(--accent-1);
+            transition: width 0.2s linear;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="stage">
+        <div id="bg-cover"></div>
+        <div id="orb-1" class="orb"></div>
+        <div id="orb-2" class="orb"></div>
+    </div>
+
+    <div id="lyrics-container">
+        <div id="lyrics-wrapper">
+            <ul id="lyrics">
+                <li class="status-msg">Waiting for music...</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="widget-wrapper">
+        <div class="widget">
+            <div id="cover-art">
+                <div class="pause-overlay">⏸</div>
+            </div>
+            <div class="track-details">
+                <div id="title">No Music Playing</div>
+                <div id="artist">No Music Playing</div>
+                <div class="progress-container">
+                    <div class="time-labels">
+                        <span id="current-time">0:00</span>
+                        <span id="total-time">0:00</span>
+                    </div>
+                    <div class="bar-track">
+                        <div id="bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:1608/';
+        const LYRICS_HOST = "https://lrclib.net/api"; 
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const OFFSET = parseFloat(urlParams.get('offset')) || 1.3;
+
+        let currentTrackKey = "";
+        let lastServerProgress = 0;
+        let lastSyncTimestamp = Date.now();
+        let isPlaying = false;
+
+        let current_lyrics = [];
+        let current_line_index = -1;
+        let current_song_pos = 0;
+        let current_title = "";
+        let current_status = "stopped";
+        let last_tick_time = Date.now();
+        let playback_rate = 1.0;
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds < 0) return "0:00";
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function setStatus(msg) { 
+            const wrapper = document.getElementById('lyrics-wrapper');
+            if (wrapper) wrapper.style.transform = `translateY(0px)`;
+            const lyricsEl = document.getElementById("lyrics");
+            if (lyricsEl) lyricsEl.innerHTML = `<li class='status-msg'>${msg}</li>`; 
+        }
+
+        function updateVisualTheme(coverUrl) {
+            const timestamped = coverUrl + (coverUrl.includes('?') ? '&' : '?') + 't=' + Date.now();
+            document.getElementById('bg-cover').style.backgroundImage = `url("${timestamped}")`;
+            document.getElementById('cover-art').style.backgroundImage = `url("${timestamped}")`;
+
+            const img = new Image();
+            img.crossOrigin = "Anonymous";
+            img.src = timestamped;
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                canvas.width = 20; canvas.height = 20;
+                ctx.drawImage(img, 0, 0, 20, 20);
+                const p = ctx.getImageData(2, 2, 1, 1).data;
+                const p2 = ctx.getImageData(18, 18, 1, 1).data;
+                
+                document.documentElement.style.setProperty('--accent-1', `rgb(${p[0]}, ${p[1]}, ${p[2]})`);
+                document.documentElement.style.setProperty('--accent-2', `rgb(${p2[0]}, ${p2[1]}, ${p2[2]})`);
+            };
+        }
+
+        async function getLyrics(title, artists, duration) {
+            setStatus("Searching lyrics...");
+
+            const cleanTitle = title.replace(/\(feat.*?\)|\[.*?\]|\(Official.*?\)/gi, "").split('-')[0].trim();
+            const cleanArtist = artists[0].replace(/- Topic/gi, "").trim();
+            const roundedDuration = duration ? Math.round(duration) : null;
+
+            if (roundedDuration) {
+                try {
+                    const getUrl = `${LYRICS_HOST}/get?track_name=${encodeURIComponent(cleanTitle)}&artist_name=${encodeURIComponent(cleanArtist)}&duration=${roundedDuration}`;
+                    const response = await fetch(getUrl);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (data.syncedLyrics) {
+                            renderLyrics(data.syncedLyrics);
+                            return; 
+                        }
+                    }
+                } catch (e) {
+                    console.warn("Precision match failed, switching to search...");
+                }
+            }
+
+            try {
+                const searchUrl = `${LYRICS_HOST}/search?track_name=${encodeURIComponent(cleanTitle)}&artist_name=${encodeURIComponent(cleanArtist)}`;
+                const response = await fetch(searchUrl);
+                if (!response.ok) throw new Error();
+
+                const results = await response.json();
+                const syncedResults = results.filter(r => r.syncedLyrics);
+
+                let match = syncedResults.find(r => duration && Math.abs(r.duration - duration) < 4);
+
+                if (!match && syncedResults.length > 0) {
+                    if (syncedResults[0].trackName.toLowerCase() === cleanTitle.toLowerCase()) {
+                        match = syncedResults[0];
+                    }
+                }
+
+                if (match) {
+                    renderLyrics(match.syncedLyrics);
+                } else {
+                    setStatus("Lyrics Not Found");
+                }
+            } catch (e) {
+                setStatus("Lyrics Not Found");
+            }
+        }
+
+        function renderLyrics(syncedText) {
+            const lines = syncedText.split("\n");
+            current_lyrics = [];
+            const timeRegex = /\[(\d+):(\d+)(?:[.:](\d+))?\]/;
+            
+            for (let line of lines) {
+                const match = line.match(timeRegex);
+                if (match) {
+                    const mins = parseInt(match[1]);
+                    const secs = parseInt(match[2]);
+                    const msStr = match[3] || "0";
+                    const ms = parseInt(msStr.padEnd(3, '0').substring(0, 3));
+                    const totalSeconds = mins * 60 + secs + (ms / 1000);
+                    
+                    const content = line.replace(/\[.*?\]/, "").trim();
+                    if (!content) continue; 
+                    
+                    const words = content.split(/\s+/).map(w => ({ text: w }));
+                    current_lyrics.push({ time: totalSeconds, words });
+                }
+            }
+            
+            current_lyrics.sort((a, b) => a.time - b.time);
+            const lyricsEl = document.getElementById("lyrics");
+            lyricsEl.innerHTML = "";
+            
+            current_lyrics.forEach((line, i) => {
+                const li = document.createElement('li');
+                li.id = `line-${i}`;
+                line.words.forEach(w => {
+                    const wrapper = document.createElement('span');
+                    wrapper.className = 'word-wrapper';
+                    const span = document.createElement('span');
+                    span.className = 'word';
+                    span.textContent = w.text + " ";
+                    wrapper.appendChild(span);
+                    li.appendChild(wrapper);
+                });
+                lyricsEl.appendChild(li);
+            });
+        }
+
+        function pollPlayer() {
+            fetch(API_URL).then(r => r.json()).then(data => {
+                if (!data || data.status === "stopped") {
+                    document.body.classList.add('is-paused');
+                    current_status = "stopped";
+                    isPlaying = false;
+                    if (current_title !== "") { 
+                        current_title = ""; 
+                        current_lyrics = []; 
+                        setStatus("Waiting for music..."); 
+                    }
+                    return;
+                }
+                
+                isPlaying = (data.status === "playing");
+                current_status = data.status;
+                if (isPlaying) {
+                    document.body.classList.remove('is-paused');
+                } else {
+                    document.body.classList.add('is-paused');
+                }
+
+                const title = data.title || "Unknown Track";
+                const artists = data.artists || ["Unknown Artist"];
+                const artistStr = artists.join(", ");
+                const duration = (data.duration || 0) / 1000;
+                const progress = (data.progress || 0) / 1000;
+
+                lastServerProgress = progress;
+                lastSyncTimestamp = Date.now();
+                let server_pos = progress + OFFSET;
+
+                const trackKey = `${title}-${artistStr}`;
+                if (trackKey !== currentTrackKey) {
+                    currentTrackKey = trackKey;
+                    current_line_index = -1;
+                    current_lyrics = [];
+                    current_song_pos = server_pos;
+
+                    document.getElementById('title').textContent = title;
+                    document.getElementById('artist').textContent = artistStr;
+                    document.getElementById('total-time').textContent = formatTime(duration);
+                    
+                    if (data.cover_url) {
+                        updateVisualTheme(data.cover_url);
+                    }
+
+                    getLyrics(title, artists, duration);
+                }
+
+                const drift = server_pos - current_song_pos;
+                playback_rate = Math.abs(drift) > 1.2 ? 1.0 : 1.0 + (drift * 0.2);
+                if (Math.abs(drift) > 2.5) current_song_pos = server_pos;
+
+                document.getElementById('bar-fill').style.width = `${(progress / (duration || 1)) * 100}%`;
+                document.getElementById('current-time').textContent = formatTime(progress);
+
+            }).catch(() => {});
+        }
+
+        function renderLoop() {
+            const now = Date.now();
+            const dt = (now - last_tick_time) / 1000;
+            last_tick_time = now;
+
+            // Multi-frequency sine waves overlaying each other to mimic natural, breathing rhythm changes
+            const t = now * 0.0004;
+            const x1 = Math.sin(t * 1.1) * 16 + Math.cos(t * 0.4) * 8;
+            const y1 = Math.cos(t * 0.9) * 14 + Math.sin(t * 0.5) * 6;
+            
+            const x2 = Math.cos(t * 0.8) * 18 + Math.sin(t * 0.3) * 10;
+            const y2 = Math.sin(t * 1.0) * 15 + Math.cos(t * 0.6) * 7;
+
+            // Subtle pulsing illusion that subtly reacts when music is active
+            const pulse = isPlaying 
+                ? (Math.sin(now * 0.004) * 0.08 + Math.sin(now * 0.012) * 0.03)
+                : 0;
+
+            const orb1 = document.getElementById('orb-1');
+            const orb2 = document.getElementById('orb-2');
+
+            if (orb1 && orb2) {
+                orb1.style.transform = `translate(${x1}vw, ${y1}vh) scale(${1 + pulse})`;
+                orb2.style.transform = `translate(${x2}vw, ${y2}vh) scale(${1 - pulse})`;
+                
+                // Subtle organic shimmer on opacity to look like shifting stage light intensity
+                if (isPlaying) {
+                    orb1.style.opacity = 0.45 + Math.sin(now * 0.002) * 0.1;
+                    orb2.style.opacity = 0.45 + Math.cos(now * 0.0025) * 0.1;
+                } else {
+                    orb1.style.opacity = 0.35;
+                    orb2.style.opacity = 0.35;
+                }
+            }
+
+            if (current_status === "playing" && current_lyrics.length > 0) {
+                current_song_pos += (dt * playback_rate);
+                
+                let targetIndex = -1;
+                for (let i = 0; i < current_lyrics.length; i++) {
+                    if (current_song_pos >= current_lyrics[i].time) targetIndex = i;
+                    else break;
+                }
+
+                if (targetIndex !== -1) {
+                    if (targetIndex !== current_line_index) {
+                        const line = document.getElementById("line-" + targetIndex);
+                        const prev = document.getElementById("line-" + current_line_index);
+                        if (prev) { 
+                            prev.classList.remove("active"); 
+                            prev.querySelectorAll('.word').forEach(w => w.classList.remove('active-word')); 
+                        }
+                        if (line) {
+                            line.classList.add("active");
+                            const containerHeight = document.getElementById('lyrics-container').offsetHeight;
+                            const offset = (containerHeight / 2) - (line.offsetTop + line.offsetHeight / 2);
+                            document.getElementById('lyrics-wrapper').style.transform = `translateY(${offset}px)`;
+                        }
+                        current_line_index = targetIndex;
+                    }
+
+                    const lineData = current_lyrics[targetIndex];
+                    const nextLine = current_lyrics[targetIndex + 1];
+                    const lineStart = lineData.time;
+                    const lineEnd = nextLine ? nextLine.time : lineStart + 4;
+
+                    const rawLineDuration = Math.max(0.1, lineEnd - lineStart);
+                    const timeInLine = current_song_pos - lineStart;
+
+                    const naturalDuration = (lineData.words.length * 0.55) + 1.0;
+                    const activeSingingDuration = Math.min(rawLineDuration, naturalDuration);
+
+                    const totalChars = lineData.words.join('').length;
+                    const isHighDensity = (totalChars / activeSingingDuration) > 12; 
+
+                    let totalWeight = 0;
+                    const weights = lineData.words.map(w => {
+                        let weight = Math.max(2, w.text.length); 
+                        if (w.text.match(/[.,!?]$/) && !isHighDensity) weight += 3; 
+                        totalWeight += weight;
+                        return weight;
+                    });
+
+                    let activeWordIdx = -1; 
+                    if (timeInLine <= activeSingingDuration) {
+                        let cumulativeTime = 0;
+                        for (let j = 0; j < lineData.words.length; j++) {
+                            const wordDuration = (weights[j] / totalWeight) * activeSingingDuration;
+                            if (timeInLine >= cumulativeTime && timeInLine < cumulativeTime + wordDuration) {
+                                activeWordIdx = j;
+                                break;
+                            }
+                            cumulativeTime += wordDuration;
+                        }
+                    }
+
+                    const wordSpans = document.querySelectorAll(`#line-${targetIndex} .word`);
+                    wordSpans.forEach((w, i) => {
+                        w.classList.toggle('active-word', i === activeWordIdx);
+                    });
+                }
+            }
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        setInterval(pollPlayer, 1000);
+        pollPlayer();
+        requestAnimationFrame(renderLoop);
+    </script>
+</body>
+</html>
