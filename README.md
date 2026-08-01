@@ -26,6 +26,8 @@ Compact, lightweight, and customizable overlays for your stream or desktop.
 ### 🖼️ Visualizers
 These tools utilize our premium glassmorphism card engine for a clean, cohesive display.
 
+*   **Nebula:** Immersive, word-by-word synced lyrics with a dynamic glassmorphism media widget and color-extracting ambient background orbs.
+    *   **OBS Source:** `https://pulse.jakpat.dev/overlays/visualizers/nebula.html`
 *   **Vision:** The complete cinematic package. Features a floating glassmorphism card with Album Art, Song Title, Artist, and a Progress Bar, set against a dynamic ambient background.
     *   **OBS Source:** `https://pulse.jakpat.dev/overlays/visualizers/vision.html`
 *   **Studio Edition:** The full lyric-integrated experience. Features the floating glassmorphism card paired with the Modern Glow lyric engine.
