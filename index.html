@@ -57,109 +57,150 @@
         h1 { font-size: 3.5rem; margin: 0; font-weight: 800; letter-spacing: -1px; }
         .subtitle { color: var(--text-dim); font-size: 1.2rem; margin-top: 10px; }
 
-/* */
-            /* THANK YOU & FEEDBACK CARD */
-        .milestone-card {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 16px;
-            padding: 30px;
-            margin-bottom: 40px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
+    /* Prominent Download Banner for Web Visitors */
+.download-banner {
+    background: linear-gradient(135deg, #161616, #222222);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: 24px 20px;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1001;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
 
-        .milestone-badge {
-            display: inline-block;
-            background: #ffffff;
-            color: #000000;
-            font-weight: 800;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 20px;
-            letter-spacing: 1px;
-            margin-bottom: 12px;
-        }
+.download-banner-content {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
 
-        .milestone-card h2 {
-            margin: 0 0 10px 0;
-            font-size: 1.8rem;
-            font-weight: 800;
-        }
+.download-banner h3 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
 
-        .milestone-card p {
-            color: var(--text-dim);
-            max-width: 650px;
-            margin: 0 auto 20px auto;
-            font-size: 0.95rem;
-        }
+.download-banner p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
 
-        .feedback-form {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            max-width: 500px;
-            margin: 0 auto;
-        }
+.download-banner-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 5px;
+}
 
-        .feedback-textarea {
-            width: 100%;
-            height: 90px;
-            background: #161616;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px;
-            color: white;
-            font-family: inherit;
-            font-size: 0.9rem;
-            resize: none;
-            box-sizing: border-box;
-            outline: none;
-            transition: border-color 0.2s;
-        }
+.download-banner .btn-main {
+    background: white;
+    color: black;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 700;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background 0.2s;
+}
 
-        .feedback-textarea:focus {
-            border-color: #555;
-        }
-    
-            /* FEEDBACK SUCCESS STATE */
-        .feedback-success {
-            padding: 20px;
-            animation: fadeIn 0.4s ease-out forwards;
-        }
+.download-banner .btn-main:hover {
+    background: #ddd;
+}
 
-        .success-icon {
-            width: 50px;
-            height: 50px;
-            background: #ffffff;
-            color: #000000;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            font-weight: 800;
-            margin: 0 auto 15px auto;
-        }
+/* Compact Feedback & Issues Section */
+.feedback-compact-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 30px;
+    margin-bottom: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
 
-        .feedback-success h3 {
-            margin: 0 0 8px 0;
-            font-size: 1.3rem;
-            color: #ffffff;
-        }
+.feedback-compact-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
 
-        .feedback-success p {
-            margin: 0;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-        }
+.feedback-compact-card h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-    /* */
+.feedback-compact-card p {
+    margin: 0;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+.feedback-actions-right {
+    display: flex;
+    gap: 10px;
+}
+
+.feedback-inline-form {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.feedback-input {
+    flex: 1;
+    background: #161616;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: white;
+    font-size: 0.85rem;
+    outline: none;
+}
+
+.feedback-input:focus {
+    border-color: #555;
+}
+
+.feedback-compact-card .btn {
+    padding: 10px 18px;
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.feedback-success {
+    text-align: center;
+    color: #4ade80;
+    font-size: 0.9rem;
+    font-weight: 600;
+    padding: 5px 0;
+}
+
+@media (max-width: 700px) {
+    .feedback-compact-content {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .feedback-actions-right {
+        width: 100%;
+    }
+    .feedback-actions-right .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
         
         section { margin-top: 60px; }
         h2.section-title { font-size: 1.8rem; border-bottom: 1px solid var(--border); padding-bottom: 15px; margin-bottom: 30px; font-weight: 800; }
@@ -213,13 +254,24 @@
             border-radius: 16px;
             border: 1px solid var(--border);
             margin-top: 40px;
+            width: 100%;
+            box-sizing: border-box;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
         }
 
-        .markdown-body { color: #d1d1d1; font-size: 1rem; }
+        .markdown-body { color: #d1d1d1; font-size: 1rem; width: 100%; box-sizing: border-box; }
         .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body strong { color: #ffffff; margin-top: 1.5em; }
-        .markdown-body p, .markdown-body li { color: #e0e0e0; }
-        .markdown-body a { color: #58a6ff; text-decoration: none; font-weight: 600; }
+        .markdown-body p, .markdown-body li { color: #e0e0e0; overflow-wrap: break-word; }
+        .markdown-body a { color: #58a6ff; text-decoration: none; font-weight: 600; word-break: break-all; }
         .markdown-body a:hover { text-decoration: underline; color: #79c0ff; }
+        
+        .markdown-body pre, .markdown-body code {
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-width: 100%;
+        }
 
         #toast {
             position: fixed; bottom: 40px; left: 50%; transform: translateX(-50%);
@@ -231,12 +283,15 @@
         footer {
             margin-top: 60px; padding: 40px 0; color: var(--text-dim); font-size: 0.9rem;
             text-align: center; border-top: 1px solid var(--border); width: 100%;
+            box-sizing: border-box;
         }
 
         @media (max-width: 500px) {
             .grid { grid-template-columns: 1fr; }
             h1 { font-size: 2.2rem; }
             .top-nav { justify-content: center; position: relative; padding: 20px; }
+            .wrapper { width: 95%; padding: 40px 0; }
+            #readme-container { padding: 20px; }
         }
     </style>
 </head>
@@ -251,30 +306,35 @@
 
 <div class="wrapper">
 
-<!-- Milestone Banner & Feedback Form -->
-    <div class="milestone-card">
-        <span class="milestone-badge">🎉 Milestone Achieved</span>
-        <h2>Thank You for 10+ Downloads!</h2>
-        <p>Pulse has reached its first 10 downloads! As an early supporter, your thoughts shape where the app goes next. Let us know what features you love, what new features would you like to see added or what platform support (like Android) you want to see!</p>
-        
-        <!-- Input Form State -->
-        <form id="feedbackForm" class="feedback-form" onsubmit="submitFeedback(event)">
-            <textarea id="feedbackText" class="feedback-textarea" placeholder="Share your suggestions, bug reports, or requests..." required></textarea>
-            <button type="submit" id="feedbackSubmitBtn" class="btn btn-main">Send Feedback</button>
-        </form>
-
-        <!-- Success Confirmation State (Hidden by default) -->
-        <div id="feedbackSuccess" class="feedback-success" style="display: none;">
-            <div class="success-icon">✓</div>
-            <h3>Feedback Received!</h3>
-            <p>Thank you for helping make Pulse better. Your message has been sent directly to the developer.</p>
-        </div>
-    </div>
-    
     <header>
         <h1>🎵 Pulse</h1>
         <p class="subtitle">The premium all-in-one suite for synchronized lyrics, visualizers, and stream widgets.</p>
     </header>
+    
+
+    <!-- Low-Profile Feedback & Support Section -->
+    <div class="feedback-compact-card">
+        <div class="feedback-compact-content">
+            <div>
+                <h3>💬 Help Shape Pulse</h3>
+                <p>Have ideas, requests, or bug reports? Use GitHub or drop a quick message below if you don't have an account.</p>
+            </div>
+            <div class="feedback-actions-right">
+                <a href="https://github.com/jakpat2/Pulse/issues" target="_blank" class="btn btn-outline">Open GitHub Issue</a>
+            </div>
+        </div>
+
+        <!-- Quick Web3Forms Input for non-GitHub users -->
+        <form id="feedbackForm" class="feedback-inline-form" onsubmit="submitFeedback(event)">
+            <input type="text" id="feedbackText" class="feedback-input" placeholder="Quick message (no account needed)..." required>
+            <button type="submit" id="feedbackSubmitBtn" class="btn btn-main">Send</button>
+        </form>
+
+        <!-- Success State -->
+        <div id="feedbackSuccess" class="feedback-success" style="display: none;">
+            <p>✅ Thank you! Your message has been sent directly to the developer.</p>
+        </div>
+    </div>
 
     <section>
         <h2 class="section-title">🚀 Choose Your Experience</h2>
@@ -342,6 +402,29 @@
 <div id="toast">URL COPIED!</div>
 
 <script>
+        // Check if the URL has ?mode=pulse (injected by the Electron app)
+    window.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const mode = urlParams.get('mode');
+
+        // If 'mode' is NOT 'pulse', show the prominent desktop app download banner
+        if (mode !== 'pulse') {
+            const banner = document.createElement('div');
+            banner.className = 'download-banner';
+            banner.innerHTML = `
+                <div class="download-banner-content">
+                    <h3>🎵 Bring Your Music to Life with Pulse</h3>
+                    <p>Download the Pulse app for stunning visualizers and synchronized lyrics while you game or relax. For more info scroll down to the Documentation (GitHub readme).</p>
+                    <div class="download-banner-actions">
+                        <a href="https://github.com/jakpat2/Pulse/releases/latest" target="_blank" class="btn-main">Download Pulse App</a>
+                    </div>
+                </div>
+            `;
+            // Insert the banner at the very top of the body
+            document.body.insertBefore(banner, document.body.firstChild);
+        }
+    });
+
     const GITHUB_USER = "jakpat2";
     const REPO_NAME = "Pulse";
 
